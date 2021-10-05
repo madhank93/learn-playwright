@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.15.1"
+  },
+  "dependencies": {
+    "typescript": "^4.4.3"
   }
 }
