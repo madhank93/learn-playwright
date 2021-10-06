@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { CartPage } from "./cart-page";
 
 export class HomePage {
   private readonly page: Page;
@@ -6,6 +7,7 @@ export class HomePage {
     cart_icon: "id=shopping_cart_container",
     back_pack: "data-test=add-to-cart-sauce-labs-backpack",
     bike_light: "data-test=add-to-cart-sauce-labs-bike-light",
+    product: "data-test=PRODUCT",
     cart_count: ".shopping_cart_badge",
   };
 
@@ -17,12 +19,20 @@ export class HomePage {
     return this.page.isVisible(this.selectors.cart_icon);
   }
 
-  async addItemsToCart() {
-    await this.page.click(this.selectors.back_pack);
-    await this.page.click(this.selectors.bike_light);
+  async addItemsToCart(products: string[]) {
+    products.forEach((prod) =>
+      this.page.click(this.selectors.product.replace("PRODUCT", prod))
+    );
+    this.page.waitForTimeout(10000);
+    return this;
   }
 
   async getCartItemsCount() {
     return await this.page.textContent(this.selectors.cart_count);
+  }
+
+  async gotoCartPage() {
+    await this.page.click(this.selectors.cart_icon);
+    return new CartPage(this.page);
   }
 }

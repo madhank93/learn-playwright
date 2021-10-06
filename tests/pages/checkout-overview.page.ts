@@ -1,9 +1,10 @@
 import { Page } from "@playwright/test";
+import { OrderCompletePage } from "./order-complete.page";
 
 export class CheckoutOverviewPage {
   private readonly page: Page;
   private readonly selectors = {
-    finish: "#checkout",
+    finish: "#finish",
   };
 
   constructor(page: Page) {
@@ -12,5 +13,6 @@ export class CheckoutOverviewPage {
 
   async finishCheckout() {
     await this.page.click(this.selectors.finish);
+    return new OrderCompletePage(this.page);
   }
 }

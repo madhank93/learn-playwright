@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 
-export class CartPage {
+export class OrderCompletePage {
   private readonly page: Page;
   private readonly selectors = {
     order_complete_msg: ".complete-header",
@@ -11,6 +11,6 @@ export class CartPage {
   }
 
   async orderCompleteMessage() {
-    return await this.page.click(this.selectors.order_complete_msg);
+    return await this.page.textContent(this.selectors.order_complete_msg);
   }
 }

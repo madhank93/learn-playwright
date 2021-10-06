@@ -1,4 +1,6 @@
 import { Page } from "@playwright/test";
+import { LoginDetails } from "../models/purchase";
+import { HomePage } from "./home-page";
 
 export class LoginPage {
   private readonly page: Page;
@@ -10,17 +12,10 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
   }
-  async goto() {
-    await this.page.goto("https://www.saucedemo.com/");
-    return this;
-  }
-  async login() {
-    await this.page.fill(this.selectors.user_name, "standard_user");
-    await this.page.fill(this.selectors.password, "secret_sauce");
+  async login(credentials: LoginDetails) {
+    await this.page.fill(this.selectors.user_name, credentials.user_name);
+    await this.page.fill(this.selectors.password, credentials.password);
     await this.page.click(this.selectors.login_button);
-    return this;
-  }
-  async tearDown() {
-    await this.page.close();
+    return new HomePage(this.page);
   }
 }

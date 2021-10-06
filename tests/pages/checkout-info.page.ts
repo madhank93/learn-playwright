@@ -1,4 +1,6 @@
 import { Page } from "@playwright/test";
+import { CheckoutInfo } from "../models/purchase";
+import { CheckoutOverviewPage } from "./checkout-overview.page";
 
 export class CheckoutInfoPage {
   private readonly page: Page;
@@ -13,10 +15,11 @@ export class CheckoutInfoPage {
     this.page = page;
   }
 
-  async fillCheckoutInformation() {
-    await this.page.fill(this.selectors.first_name, "Eric");
-    await this.page.fill(this.selectors.last_name, "Martin");
-    await this.page.fill(this.selectors.zip_code, "600005");
+  async fillCheckoutInformation(userDetails: CheckoutInfo) {
+    await this.page.fill(this.selectors.first_name, userDetails.first_name);
+    await this.page.fill(this.selectors.last_name, userDetails.last_name);
+    await this.page.fill(this.selectors.zip_code, userDetails.zip_code);
     await this.page.click(this.selectors.continue);
+    return new CheckoutOverviewPage(this.page);
   }
 }
