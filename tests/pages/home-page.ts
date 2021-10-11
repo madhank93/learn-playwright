@@ -5,8 +5,6 @@ export class HomePage {
   private readonly page: Page;
   private readonly selectors = {
     cart_icon: "id=shopping_cart_container",
-    back_pack: "data-test=add-to-cart-sauce-labs-backpack",
-    bike_light: "data-test=add-to-cart-sauce-labs-bike-light",
     product: "data-test=PRODUCT",
     cart_count: ".shopping_cart_badge",
   };
